@@ -1,0 +1,6 @@
+[submodule "deps/haggle"]
+	path = deps/haggle
+	url = https://github.com/PeggleCommunity/haggle
+[submodule "deps/minhook"]
+	path = deps/minhook
+	url = https://github.com/TsudaKageyu/minhook
