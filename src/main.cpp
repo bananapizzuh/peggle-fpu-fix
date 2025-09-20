@@ -30,7 +30,10 @@ void __fastcall HookSet3DAcclerated(void* this_, int edx, bool is3D, bool reinit
     if (err)
     {
         std::printf("Error setting FPU precision!\n");
-    }
+    } 
+	else {
+		std::printf("Successfully set new FPU precision to %d bits!\n", is3D ? 24 : 53);
+	}
 }
 
 
