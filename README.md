@@ -1,6 +1,7 @@
 # Peggle FPU Fix
 > [!WARNING]
 > This mod has not been tested on Peggle Nights!
+
 This mod was created to try to fix the unintended issue of 3d Acceleration changing the physics in Peggle. Direct3D 9 changes the floating point precision when initialized, in order to cut down computation time. There is a supported compile time flag (`D3DCREATE_FPU_PRESERVE`) to avoid this but PopCap did not use it. The functionality of the smaller precision still exists with this mod, it only fixes reverting back to the original precision from 3d Accelerated mode.
 
 I would like to thank discord user brianshmrian, also known as Brian Rothstein, who worked on Peggle and other games during his time at PopCap for sharing his findings on the issue in The Peggle Project discord while sharing development stories.
