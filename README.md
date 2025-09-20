@@ -8,9 +8,9 @@ I would like to thank discord user brianshmrian, also known as Brian Rothstein, 
 
 ## Installation
 > [!NOTE]
-> This mod requires the [haggle Mod Loader](https://github.com/PeggleCommunity/haggle-mod-loader/releases/latest) as well as the [Haggle SDK](https://github.com/PeggleCommunity/haggle/releases/latest).
+> This mod requires the [Haggle Mod Loader](https://github.com/PeggleCommunity/haggle-mod-loader/releases/latest) as well as the [Haggle SDK](https://github.com/PeggleCommunity/haggle/releases/latest).
 
-Either get the latest release from the [release page](https://github.com/bananapizzuh/peggle-fpu-fix/releases/latest), or build from scratch. Then put the dll in the mods folder of your respective game (usually in `C:\Program Files (x86)\Steam\steamapps\common\`).
+Either get the latest release from the [releases page](https://github.com/bananapizzuh/peggle-fpu-fix/releases/latest), or build from scratch. Then put the dll in the mods folder of your respective game (usually in `C:\Program Files (x86)\Steam\steamapps\common\`).
 
 ## Building
 - Clone the github reposity recursively: `git clone --recursive https://github.com/bananapizzuh/peggle-fpu-fix`
