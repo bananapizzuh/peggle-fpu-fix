@@ -1,67 +1,47 @@
-#include <Windows.h>
-#include <cstdint>
-#include <cstdio>
-#include <MinHook.h>
-#include <float.h>
-#include "sdk/SexySDK.hpp"
 #include "sdk/HaggleSDK.hpp"
 
-static void(__thiscall* Set3DAcclerated)(void*, bool, bool);
+static void(__thiscall* Set3DAccelerated)(void*, bool, bool);
 
-void __fastcall HookSet3DAcclerated(void* this_, int edx, bool is3D, bool reinit)
+void __fastcall HookSet3DAccelerated(void* this_, int edx, bool is3D, bool reinit)
 {
-    Set3DAcclerated(this_, is3D, reinit);
+    Set3DAccelerated(this_, is3D, reinit);
 
     unsigned int current_word;
-    unsigned int new_precision;
-    int err;
+    int err = _controlfp_s(&current_word, is3D ? _PC_24 : _PC_53, _MCW_PC);
 
-    if (is3D)
-    {
-        new_precision = _PC_24;
-    }
-    else
-    {
-        new_precision = _PC_53;
-    }
-
-    err = _controlfp_s(&current_word, new_precision, _MCW_PC);
-    
     if (err)
     {
-        std::printf("Error setting FPU precision!\n");
+        std::printf("[ ERROR ]: Error setting FPU precision!\n");
     } 
 	else {
-		std::printf("Successfully set new FPU precision to %d bits!\n", is3D ? 24 : 53);
+		std::printf("[ INFO ]: Successfully set new FPU precision to %d bits!\n", is3D ? 24 : 53);
 	}
 }
 
 
 void init()
 {
-    Haggle::PeggleVersion game_version = Haggle::get_game_version();
+    std::uint32_t addr_Set3DAccelerated = 0;
 
-    std::uint32_t target_address = 0;
-
-    switch (game_version)
+    switch (Haggle::get_game_version())
     {
     case Haggle::PeggleVersion::Deluxe101:
-        target_address = 0x00538a60;
+        addr_Set3DAccelerated = 0x00538a60;
         break;
     case Haggle::PeggleVersion::NightsDeluxe10:
-        target_address = 0x0054fe20;
+        addr_Set3DAccelerated = 0x0054fe20;
         break;
     default:
-        std::printf("Unknown Peggle version.\n");
+        std::printf("[ ERROR ]: Unknown Peggle version.\n");
         return;
     }
 
     MH_Initialize();
 
     MH_CreateHook(
-        (void*)target_address,
-        &HookSet3DAcclerated,
-        (void**)&Set3DAcclerated
+        (void*)addr_Set3DAccelerated,
+        &HookSet3DAccelerated,
+        (void**)&Set3DAccelerated
     );
 
     MH_EnableHook(MH_ALL_HOOKS);
